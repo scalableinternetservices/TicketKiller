@@ -3,7 +3,7 @@
 Project Name: TicketKiller
 Project Description:
 Team Members: 
-Aozhu Chen     achen28bamboo
+Aozhu Chen(@achen28bamboo)
 Colin
 Will
 Ning Xin
