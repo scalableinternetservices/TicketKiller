@@ -11,5 +11,5 @@
 * Colin [@colinxy](https://github.com/colinxy)
 * Will [@willkea](https://github.com/willkea)
 * Ning Xin [@xiuluoxn](https://github.com/xiuluoxn)
-<br>![Ning photo](https://avatars0.githubusercontent.com/u/22165743?v=3&s=450)
+<br>![Ning photo](https://avatars0.githubusercontent.com/u/22165743?v=3&s=550)
 
