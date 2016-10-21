@@ -1,4 +1,6 @@
 class Car < ApplicationRecord
+  belongs_to :user
+
   validates :user_id, presence: true, uniqueness: true
   validates :long, presence: true, numericality: { only_float: true }
   validates :lat, presence: true, numericality: { only_float: true }
