@@ -1,20 +1,20 @@
 class UsersController < ApplicationController
-  
+
   def new
-  	@user = User.new
-  	#debugger
+    @user = User.new
+    # debugger
   end
 
   def show
-  	@user = User.find(params[:id])
-  	#debugger
+    @user = User.find(params[:id])
+    # debugger
   end
 
   def create
-    @user = User.new(user_params)    # Not the final implementation!
+    @user = User.new(user_params) # Not the final implementation!
     if @user.save
       log_in @user
-      flash[:success] = "Welcome to TicketKiller!"
+      flash[:success] = 'Welcome to TicketKiller!'
       redirect_to @user
     else
       render 'new'
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   end
 
   private
-  	def user_params
-  	  params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  	end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
 end
