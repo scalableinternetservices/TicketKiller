@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @officer.lat %>
+</p>
+
+<p>
+  <strong>Long:</strong>
+  <%= @officer.long %>
+</p>
+
+<p>
+  <strong>Last seen:</strong>
+  <%= @officer.last_seen %>
+</p>
+
+<%= link_to 'Edit', edit_officer_path(@officer) %> |
+<%= link_to 'Back', officers_path %>
