@@ -1,6 +1,13 @@
 ## TicketKiller
+TicketKiller V1.0
+This is the Ticket Killer application created by Colin, Xin, Aozhu, and William! This application is designed to prevent you from getting parking tickets. 
 
-* TicketKiller description
+With this app you will be able to:
+
+Record the position of where you parked
+Get notified when a parking enforcement officer is nearby
+Upload your own sightings
+This is a community-based application!
 
 ## Team Members:
 
