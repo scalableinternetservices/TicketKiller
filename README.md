@@ -1,41 +1,12 @@
-# Ruby on Rails Tutorial sample application
+## TicketKiller
 
-This is the sample application for
-[*Ruby on Rails Tutorial:
-Learn Web Development with Rails*](http://www.railstutorial.org/)
-by [Michael Hartl](http://www.michaelhartl.com/).
+* TicketKiller description
 
-## License
+## Team Members:
 
-All source code in the [Ruby on Rails Tutorial](http://railstutorial.org/)
-is available jointly under the MIT License and the Beerware License. See
-[LICENSE.md](LICENSE.md) for details.
-
-## Getting started
-
-To get started with the app, clone the repo and then install the needed gems:
-
-```
-$ bundle install --without production
-```
-
-Next, migrate the database:
-
-```
-$ rails db:migrate
-```
-
-Finally, run the test suite to verify that everything is working correctly:
-
-```
-$ rails test
-```
-
-If the test suite passes, you'll be ready to run the app in a local server:
-
-```
-$ rails server
-```
-
-For more information, see the
-[*Ruby on Rails Tutorial* book](http://www.railstutorial.org/book).
+* Aozhu Chen [@achen28bamboo](https://github.com/achen28bamboo)
+<br><img src="https://avatars2.githubusercontent.com/u/22670663?v=3&s=200" width="200px" height="200px" />
+* Colin [@colinxy](https://github.com/colinxy)
+* Will [@willkea](https://github.com/willkea)
+* Ning Xin [@xiuluoxn](https://github.com/xiuluoxn)
+<br><img src="https://avatars0.githubusercontent.com/u/22165743?v=3&s=400" width="200px" height="200px" />
