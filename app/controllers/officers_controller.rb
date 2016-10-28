@@ -28,7 +28,7 @@ class OfficersController < ApplicationController
 
     respond_to do |format|
       if @officer.save
-        format.html { redirect_to @officer, notice: 'Officer was successfully created.' }
+        format.html { redirect_to user_path(current_user.id), notice: 'Officer was successfully created.' }
         format.json { render :show, status: :created, location: @officer }
       else
         format.html { render :new }
