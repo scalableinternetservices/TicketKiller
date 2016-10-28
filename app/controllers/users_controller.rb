@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :logged_in_as_admin, only: [:index]
+
   def index
     @users = User.all
   end
@@ -26,7 +28,14 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def logged_in_as_admin
+      unless logged_in_as_admin?
+        flash[:danger] = "Please log in as admin."
+        redirect_to login_url
+      end
+    end
 end

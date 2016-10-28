@@ -13,6 +13,10 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+  # logged in as admin
+  def logged_in_as_admin?
+    current_user.admin?
+  end
 
   # Logs out the current user.
   def log_out

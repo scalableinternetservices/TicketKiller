@@ -1,6 +1,6 @@
 class CarsController < ApplicationController
   before_action :set_car, only: [:show, :edit, :update, :destroy]
-
+  before_action :logged_in_user, only: [:index, :show, :destroy, :edit, :update, :new, :create]
   # GET /cars
   # GET /cars.json
   def index
@@ -68,13 +68,20 @@ class CarsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_car
-    @car = Car.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_car
+      @car = Car.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def car_params
-    params.require(:car).permit(:user_id, :long, :lat)
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def car_params
+      params.require(:car).permit(:user_id, :long, :lat)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
 end
