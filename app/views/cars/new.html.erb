@@ -1,5 +1,22 @@
-<h1>New Car</h1>
+<h1>Your Car Location?</h1>
 
-<%= render 'form', car: @car %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@car, url: locateYourCar_path) do |f| %>
+      
+      <%= f.label :User_ID %>
+      <%= f.text_field :user_id, class: 'form-control' %>
+
+      <%= f.label :car_latitude %>
+      <%= f.text_field :lat, class: 'form-control' %>
+
+      <%= f.label :car_longitude%>
+      <%= f.text_field :long, class: 'form-control' %>
+
+
+      <%= f.submit "Locate My Car", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to 'Back', cars_path %>
