@@ -10,5 +10,9 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get  '/reportofficer', to: 'officers#new'
+  post '/reportofficer',  to: 'officers#create'
+  get  '/locateYourCar', to: 'cars#new'
+  post '/locateYourCar',  to: 'cars#create'
   resources :users
 end

@@ -17,7 +17,7 @@
       <tr>
         <td><%= officer.lat %></td>
         <td><%= officer.long %></td>
-        <td><%= officer.last_seen %></td>
+        <td><%= officer.created_at %></td>
         <td><%= link_to 'Show', officer %></td>
         <td><%= link_to 'Edit', edit_officer_path(officer) %></td>
         <td><%= link_to 'Destroy', officer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
