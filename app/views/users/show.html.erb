@@ -1,4 +1,4 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user) %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -19,16 +19,29 @@
 <div class="map-wrapper" style="margin-top: 20px; margin-bottom:20px">
   <div id="map" style="height: 430px">
     <script>
+     var map, bounds;
      function initMap() {
-       var map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: 34.03, lng: -118.15},
+       map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat: 34.03, lng: -118.15}, /* los angeles */
          scrollwheel: false,
          zoom: 16
        });
-       var marker = new google.maps.Marker({
-         position: {lat: 34.03, lng: -118.15},
-         map: map
+
+       var allCars = JSON.parse("<%= (@user.car.collect {|c| [c.lat, c.long]}).to_json %>");
+       console.log(allCars);
+
+       bounds = new google.maps.LatLngBounds();
+       allCars.forEach(function(latlng) {
+         var marker = new google.maps.Marker({
+           position: {lat: latlng[0], lng: latlng[1]},
+           map: map
+         });
+         bounds.extend(marker.position);
        });
+       if (allCars.length > 0) {
+         map.setCenter(bounds.getCenter());
+         map.fitBounds(bounds);
+       }
      }
     </script>
     <!-- Colin's google maps api key -->
