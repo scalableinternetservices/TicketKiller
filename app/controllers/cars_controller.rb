@@ -15,6 +15,8 @@ class CarsController < ApplicationController
   # GET /cars/new
   def new
     @car = Car.new
+    
+    #puts params[:user_id]
   end
 
   # GET /cars/1/edit
@@ -25,6 +27,7 @@ class CarsController < ApplicationController
   # POST /cars.json
   def create
     @car = Car.new(car_params)
+    #@car.user_id = params[:user_id]
 
     respond_to do |format|
       if @car.save
