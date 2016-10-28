@@ -15,7 +15,7 @@ class CarsController < ApplicationController
   # GET /cars/new
   def new
     @car = Car.new
-    
+
     #puts params[:user_id]
   end
 
@@ -26,7 +26,9 @@ class CarsController < ApplicationController
   # POST /cars
   # POST /cars.json
   def create
-    @car = Car.new(car_params)
+    cp = car_params
+    cp[:user_id] = current_user.id
+    @car = Car.new(cp)
     #@car.user_id = params[:user_id]
 
     respond_to do |format|
