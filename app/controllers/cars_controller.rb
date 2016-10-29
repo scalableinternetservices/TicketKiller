@@ -4,7 +4,7 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.json
   def index
-    @cars = Car.all
+    @cars = Car.select { |car| car.user_id == current_user.id }
   end
 
   # GET /cars/1
@@ -45,8 +45,10 @@ class CarsController < ApplicationController
   # PATCH/PUT /cars/1
   # PATCH/PUT /cars/1.json
   def update
+    cp = car_params
+    cp[:user_id] = current_user.id
     respond_to do |format|
-      if @car.update(car_params)
+      if @car.update(cp)
         format.html { redirect_to @car, notice: 'Car was successfully updated.' }
         format.json { render :show, status: :ok, location: @car }
       else
@@ -59,10 +61,14 @@ class CarsController < ApplicationController
   # DELETE /cars/1
   # DELETE /cars/1.json
   def destroy
-    @car.destroy
-    respond_to do |format|
-      format.html { redirect_to user_path(current_user.id), notice: 'Car was successfully destroyed.' }
-      format.json { head :no_content }
+    if @car.user_id == current_user.id
+      @car.destroy
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user.id), notice: 'Car was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      raise ActionController::RoutingError.new('Forbidden')
     end
   end
 

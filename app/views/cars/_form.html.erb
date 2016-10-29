@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.number_field :user_id %>
-  </div>
+  <!-- <div class="field">
+       <%#= f.label :user_id %>
+       <%#= f.number_field :user_id %>
+       </div> -->
 
   <div class="field">
-    <%= f.label :long %>
-    <%= f.text_field :long %>
-  </div>
-
-  <div class="field">
-    <%= f.label :lat %>
+    <%= f.label "Car latitude" %>
     <%= f.text_field :lat %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Car longitude" %>
+    <%= f.text_field :long %>
   </div>
 
   <div class="actions">
