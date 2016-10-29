@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params) 
+    @user = User.new(user_params)
     if @user.save
       log_in @user
       flash[:success] = 'Welcome to TicketKiller!'
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     end
 
     def logged_in_as_admin
-      unless logged_in_as_admin?
+      unless logged_in? and logged_in_as_admin?
         flash[:danger] = "Please log in as admin."
         redirect_to login_url
       end
