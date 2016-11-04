@@ -1,7 +1,3 @@
-<% unless @lat_lng %>
-  <script>getGeoLocation();</script>
-<% end %>
-
 <h1>Your Car Location?</h1>
 
 <div class="map-wrapper" style="margin-top: 20px; margin-bottom:20px">
@@ -9,23 +5,23 @@
     <script>
       var map, bounds, marker;
       
-      function getCookie(cname) {
-          var name = cname + "=";
-          var ca = document.cookie.split(';');
-          for(var i = 0; i <ca.length; i++) {
-              var c = ca[i];
-              while (c.charAt(0)==' ') {
-                  c = c.substring(1);
-              }
-              if (c.indexOf(name) == 0) {
-                  return c.substring(name.length,c.length);
-              }
-          }
-          return "";
-      }
+      // function getCookie(cname) {
+      //     var name = cname + "=";
+      //     var ca = document.cookie.split(';');
+      //     for(var i = 0; i <ca.length; i++) {
+      //         var c = ca[i];
+      //         while (c.charAt(0)==' ') {
+      //             c = c.substring(1);
+      //         }
+      //         if (c.indexOf(name) == 0) {
+      //             return c.substring(name.length,c.length);
+      //         }
+      //     }
+      //     return "";
+      // }
 
-      var lat = parseFloat(getCookie("lat_lng").split("|")[0]);
-      var long = parseFloat(getCookie("lat_lng").split("|")[1]);
+      var lat = 34.0684627;
+      var long = -118.4434926;
 
       function initMap() {
         var lat_long = {lat: lat, lng: long};
