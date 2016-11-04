@@ -9,22 +9,8 @@
     <script>
       var map, bounds, marker;
 
-      function getCookie(cname) {
-          var name = cname + "=";
-          var ca = document.cookie.split(';');
-          for(var i = 0; i <ca.length; i++) {
-              var c = ca[i];
-              while (c.charAt(0)==' ') {
-                  c = c.substring(1);
-              }
-              if (c.indexOf(name) == 0) {
-                  return c.substring(name.length,c.length);
-              }
-          }
-          return "";
-      }
-      var Lat = parseFloat(getCookie("lat_lng").split("%7C")[0]);
-      var Long = parseFloat(getCookie("lat_lng").split("%7C")[1]);
+      var Lat = parseFloat(<%= cookies[:lat_lng].split("|")[0] %>);
+      var Long = parseFloat(<%= cookies[:lat_lng].split("|")[1] %>);
       function initMap() {
         
         var lat_long = {lat: Lat, lng: Long};
@@ -36,7 +22,8 @@
         bounds = new google.maps.LatLngBounds();
         marker = new google.maps.Marker({
          position: lat_long,
-         map: map
+         map: map,
+         draggable: true
         });
 
         marker.addListener('click', toggleBounce);
