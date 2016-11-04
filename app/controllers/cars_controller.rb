@@ -40,15 +40,11 @@ class CarsController < ApplicationController
     # cp[:lat] = @lat_lng[0];
     # cp[:long] = @lat_lng[1];
     @car = Car.new(cp)
-
-    respond_to do |format|
-      if @car.save
-        format.html { redirect_to user_path(current_user.id), notice: 'Car was successfully Located.' }
-        format.json { render :show, status: :created, location: @car }
-      else
-        format.html { render :new }
-        format.json { render json: @car.errors, status: :unprocessable_entity }
-      end
+    if @car.save
+        flash[:success] = 'Car was successfully Located'
+        redirect_to user_path(current_user.id)
+    else
+      render 'new'
     end
   end
 

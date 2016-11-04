@@ -8,5 +8,10 @@
   	<%= link_to image_tag("Ticket.jpg", alt: "Ticket logo"),
     	        root_path %>
   </p>
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  <% if logged_in? %>
+  	<%= link_to "locate your car", locateYourCar_path, class: "btn btn-lg btn-primary" %>
+  	<%= link_to "report officer", reportofficer_path, class: "btn btn-lg btn-primary" %>
+  <% else %>
+  	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
 </div>

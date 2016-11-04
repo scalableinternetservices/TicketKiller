@@ -25,15 +25,11 @@ class OfficersController < ApplicationController
   # POST /officers.json
   def create
     @officer = Officer.new(officer_params)
-
-    respond_to do |format|
-      if @officer.save
-        format.html { redirect_to user_path(current_user.id), notice: 'Officer was successfully created.' }
-        format.json { render :show, status: :created, location: @officer }
-      else
-        format.html { render :new }
-        format.json { render json: @officer.errors, status: :unprocessable_entity }
-      end
+    if @officer.save
+        flash[:success] = 'officer was successfully Reported, Thank you!'
+        redirect_to user_path(current_user.id)
+    else
+      render 'new'
     end
   end
 

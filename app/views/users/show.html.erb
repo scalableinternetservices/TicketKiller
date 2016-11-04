@@ -8,16 +8,9 @@
         <%= @user.name %>
       </h1>
     </section>
+    <%= link_to "My Cars", showYourCar_path, class: "btn btn-primary" %>
   </aside>
-</div>
-<div class="">
-  <%= link_to "Report the Location of Your Car", locateYourCar_path(:user_id => @user.id), class: "btn btn-lg btn-primary" %>
-  <br>
-  <br>
-  <%= link_to "Report the Location of Officer", reportofficer_path, class: "btn btn-lg btn-primary" %>
-  <br>
-  <br>
-  <%= link_to "My Cars", showYourCar_path, class: "btn btn-lg btn-primary" %>
+  
 </div>
 
 <div class="map-wrapper" style="margin-top: 20px; margin-bottom:20px">
@@ -53,3 +46,10 @@
             async defer></script>
   </div>
 </div>
+
+<div class="row">
+  <%= link_to "Locate Your Car", locateYourCar_path, class: "btn btn-lg btn-primary" %>
+  <%= link_to "Report Officer", reportofficer_path, class: "btn btn-lg btn-primary" %>
+</div>
+
+
