@@ -34,10 +34,12 @@ class CarsController < ApplicationController
   # POST /cars
   # POST /cars.json
   def create
+    @lat_lng = cookies[:lat_lng].split("|")
     cp = car_params
     cp[:user_id] = current_user.id
+    # cp[:lat] = @lat_lng[0];
+    # cp[:long] = @lat_lng[1];
     @car = Car.new(cp)
-    # @car.user_id = params[:user_id]
 
     respond_to do |format|
       if @car.save

@@ -1,14 +1,68 @@
+<%- unless @lat_lng %>
+  <script>getGeoLocation();</script>
+<%- end %>
+
 <h1>Where Did You See The Officer?</h1>
+
+<div class="map-wrapper" style="margin-top: 20px; margin-bottom:20px">
+  <div id="map" style="height: 430px">
+    <script>
+      var map, bounds, marker;
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var ca = document.cookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length,c.length);
+              }
+          }
+          return "";
+      }
+      var Lat = parseFloat(getCookie("lat_lng").split("%7C")[0]);
+      var Long = parseFloat(getCookie("lat_lng").split("%7C")[1]);
+      function initMap() {
+        
+        var lat_long = {lat: Lat, lng: Long};
+        map = new google.maps.Map(document.getElementById('map'), {
+         zoom: 16,
+         center: lat_long
+        });
+
+        bounds = new google.maps.LatLngBounds();
+        marker = new google.maps.Marker({
+         position: lat_long,
+         map: map
+        });
+
+        marker.addListener('click', toggleBounce);
+        bounds.extend(marker.position);
+      }
+
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+    </script>
+<!-- Colin's google maps api key -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQkN_qJiypesT-pr5vj0k9AyED7OsT4cU&callback=initMap"
+    async defer></script>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@officer, url: reportofficer_path) do |f| %>
       
-      <%= f.label :officer_latitude %>
-      <%= f.text_field :lat, class: 'form-control' %>
-
-      <%= f.label :officer_longitude%>
-      <%= f.text_field :long, class: 'form-control' %>
+      <%= f.hidden_field :lat, :value => cookies[:lat_lng].split("|")[0]%>
+      <%= f.hidden_field :long, :value => cookies[:lat_lng].split("|")[1]%>
 
       <%= f.submit "Report", class: "btn btn-primary" %>
     <% end %>
