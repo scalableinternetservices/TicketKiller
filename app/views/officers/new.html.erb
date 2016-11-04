@@ -7,35 +7,49 @@
 <div class="map-wrapper" style="margin-top: 20px; margin-bottom:20px">
   <div id="map" style="height: 430px">
     <script>
-      var map, bounds, marker;
+	    var map, bounds, marker;
+	    var lat = parseFloat(<%= cookies[:lat_lng].split("|")[0] %>);
+	    var long = parseFloat(<%= cookies[:lat_lng].split("|")[1] %>);
 
-      var Lat = parseFloat(<%= cookies[:lat_lng].split("|")[0] %>);
-      var Long = parseFloat(<%= cookies[:lat_lng].split("|")[1] %>);
-      function initMap() {
-        
-        var lat_long = {lat: Lat, lng: Long};
-        map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 16,
-         center: lat_long
-        });
+	    function initMap() {
+	      var lat_long = {lat: lat, lng: long};
+	      map = new google.maps.Map(document.getElementById('map'), {
+	       zoom: 16,
+	       center: lat_long
+	      });
 
-        bounds = new google.maps.LatLngBounds();
-        marker = new google.maps.Marker({
-         position: lat_long,
-         map: map
-        });
+	      bounds = new google.maps.LatLngBounds();
+	      marker = new google.maps.Marker({
+	       position: lat_long,
+	       map: map,
+	       draggable: true
+	      });
 
-        marker.addListener('click', toggleBounce);
-        bounds.extend(marker.position);
-      }
+	      marker.addListener('click', toggleBounce);
+	      bounds.extend(marker.position);
 
-      function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-      }
+	      google.maps.event.addListener(marker, 'dragend', function (event) {
+	        lat = this.getPosition().lat();
+	        long = this.getPosition().lng();
+	        $(document).ready(function(){
+	          $("#latitude").val(lat);
+	          $("#longitude").val(long);
+	        });
+	      });
+	    }
+
+	    function toggleBounce() {
+	      if (marker.getAnimation() !== null) {
+	        marker.setAnimation(null);
+	      } else {
+	        marker.setAnimation(google.maps.Animation.BOUNCE);
+	      }
+	    }
+
+	    $(document).ready(function(){
+	      $("#latitude").val(lat);
+	      $("#longitude").val(long);
+	    });
     </script>
 <!-- Colin's google maps api key -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQkN_qJiypesT-pr5vj0k9AyED7OsT4cU&callback=initMap"
@@ -46,10 +60,8 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@officer, url: reportofficer_path) do |f| %>
-      
-      <%= f.hidden_field :lat, :value => cookies[:lat_lng].split("|")[0]%>
-      <%= f.hidden_field :long, :value => cookies[:lat_lng].split("|")[1]%>
-
+      <%= f.hidden_field :lat ,:id=>"latitude" %>
+      <%= f.hidden_field :long ,:id=>"longitude" %>
       <%= f.submit "Report", class: "btn btn-primary" %>
     <% end %>
   </div>
