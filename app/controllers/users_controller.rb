@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -47,9 +47,9 @@ class UsersController < ApplicationController
     end
 
     def user_setting
-        params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
-    
+
     def logged_in_as_admin
       unless logged_in? and logged_in_as_admin?
         flash[:danger] = "Please log in as admin."

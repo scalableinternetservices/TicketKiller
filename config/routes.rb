@@ -5,19 +5,19 @@ Rails.application.routes.draw do
   get  '/help',    to: 'static_pages#help'
   get  '/about',   to: 'static_pages#about'
   get  '/contact', to: 'static_pages#contact'
-  get  '/signup',   to: 'users#new'
+  get  '/signup',  to: 'users#new'
   post '/signup',  to: 'users#create'
 
   get  '/setting',   to: 'users#edit'
   patch '/setting',  to: 'users#update'
 
-
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get  '/reportofficer', to: 'officers#new'
-  post '/reportofficer',  to: 'officers#create'
+  post '/reportofficer', to: 'officers#create'
   get  '/locateYourCar', to: 'cars#new'
-  post '/locateYourCar',  to: 'cars#create'
+  post '/locateYourCar', to: 'cars#create'
+  get  '/showYourCar',   to: 'cars#index'
   resources :users
 end

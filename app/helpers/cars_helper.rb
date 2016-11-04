@@ -1,5 +1,9 @@
 module CarsHelper
-  def dist (car_long, car_lat, officer_long, officer_lat)
+  def self.distance(car, officer)
+    CarsHelper.dist_helper car.long, car.lat, officer.long, officer.lat
+  end
+
+  def self.dist_helper(car_long, car_lat, officer_long, officer_lat)
     # haversine
     car_long_rad = car_long * Math::PI / 180
     car_lat_rad = car_lat * Math::PI / 180

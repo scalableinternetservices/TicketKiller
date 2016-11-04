@@ -5,6 +5,14 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     @cars = Car.select { |car| car.user_id == current_user.id }
+
+    Officer.all.each do |offr|
+      @cars.each do |car|
+        Rails.logger.debug("#{offr.long}, #{offr.lat}")
+        Rails.logger.debug("#{car.long}, #{car.lat}")
+        Rails.logger.debug(CarsHelper.distance(car, offr))
+      end
+    end
   end
 
   # GET /cars/1
@@ -16,7 +24,7 @@ class CarsController < ApplicationController
   def new
     @car = Car.new
 
-    #puts params[:user_id]
+    # puts params[:user_id]
   end
 
   # GET /cars/1/edit
@@ -29,7 +37,7 @@ class CarsController < ApplicationController
     cp = car_params
     cp[:user_id] = current_user.id
     @car = Car.new(cp)
-    #@car.user_id = params[:user_id]
+    # @car.user_id = params[:user_id]
 
     respond_to do |format|
       if @car.save
