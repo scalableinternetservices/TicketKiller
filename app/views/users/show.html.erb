@@ -64,27 +64,38 @@
           }
           // car_markers.push(marker);
           // console.log(marker.getPosition().lat());
-          marker.addListener('click', function() {
-            map.setZoom(15); 
-            removeMarkers(officer_markers);
-            circle.bindTo('center', this, 'position');
-            var car_lat = this.getPosition().lat();
-            var car_lng = this.getPosition().lng();
-            addOfficerMarkers(car_lat, car_lng);
-            console.log(officer_markers);
-            
-          });
+          addListener(marker);
         }
       }
+
+      function addListener(marker) {
+        marker.addListener('click', function() {
+          map.setZoom(15); 
+          removeMarkers(officer_markers);
+          circle.bindTo('center', this, 'position');
+          var car_lat = this.getPosition().lat();
+          var car_lng = this.getPosition().lng();
+          map.setCenter(this.getPosition());
+          addOfficerMarkers(car_lat, car_lng);
+          console.log(officer_markers);
+          
+        });
+      }
+
       function removeMarkers(markers) {
         for(i=0; i<markers.length; i++){
           markers[i].setMap(null);
         }
+        officer_markers = [ ];
       }
+      
       function addOfficerMarkers(car_lat, car_lng) {
         // console.log(car_lat);
         // console.log(car_lng);
-        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        var image = {
+          url: '<%= image_path("officer.png") %>',
+          scaledSize: new google.maps.Size(40, 40)
+        };
         var allOfficers = <%= (@officers.collect {|o| [o.lat, o.long]}).to_json %>;
         
         for (var i = 0; i < allOfficers.length; i++) {
