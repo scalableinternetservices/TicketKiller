@@ -29,7 +29,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'json'
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
-gem 'aws-sdk', '~> 2.3'
+gem 'aws-sdk'
+gem 'fog'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
