@@ -16,8 +16,9 @@ ActiveRecord::Schema.define(version: 20161118060522) do
     t.integer  "user_id"
     t.float    "long"
     t.float    "lat"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "name",       default: "My Car"
   end
 
   create_table "officers", force: :cascade do |t|
