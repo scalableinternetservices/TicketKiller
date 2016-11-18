@@ -15,32 +15,106 @@
 
 <div class="map-wrapper" style="margin-top: 20px; margin-bottom:20px">
   <div id="map" style="height: 430px">
+    
     <script>
-     var map, bounds;
-     function initMap() {
-       map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: 34.03, lng: -118.15}, /* los angeles */
-         //scrollwheel: false,
-         zoom: 16
-       });
+      var map, bounds;
+      // var car_markers = [];
+      var lat;
+      var circle;
+      
 
-       var allCars = JSON.parse("<%= (@user.car.collect {|c| [c.lat, c.long]}).to_json %>");
-       console.log(allCars);
+      function initMap() {
+        var init_center = {lat: 34.03, lng: -118.15};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: init_center,
+          //scrollwheel: false,
+          zoom: 16
+        });
 
-       bounds = new google.maps.LatLngBounds();
-       allCars.forEach(function(latlng) {
-         var marker = new google.maps.Marker({
-           position: {lat: latlng[0], lng: latlng[1]},
-           map: map
-         });
-         bounds.extend(marker.position);
-       });
-       if (allCars.length > 0) {
-         map.setCenter(bounds.getCenter());
-         map.fitBounds(bounds);
-       }
-     }
+        bounds = new google.maps.LatLngBounds();
+        addCarMarkers();
+        circle = new google.maps.Circle({
+          map: map,
+          radius: 482.803,    // 0.5 miles in metres
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,        
+        });
+        //addOfficerMarkers();
+      }
+
+      function addCarMarkers() {
+        var allCars = <%= (@user.car.collect {|c| [c.lat, c.long]}).to_json %>;
+
+        for (var i = 0; i < allCars.length; i++) {
+          var lat = allCars[i][0];
+          var lng = allCars[i][1];
+
+          var marker = new google.maps.Marker({
+            position: {lat: lat, lng: lng},
+            map: map
+          });
+          bounds.extend(marker.position);
+
+          if (allCars.length > 0) {
+            map.setCenter(bounds.getCenter());
+            map.fitBounds(bounds);
+          }
+          // car_markers.push(marker);
+          // console.log(marker.getPosition().lat());
+          marker.addListener('click', function() {
+            map.setZoom(15); 
+            circle.bindTo('center', this, 'position');
+            var car_lat = this.getPosition().lat();
+            var car_lng = this.getPosition().lng();
+            addOfficerMarkers(car_lat, car_lng);
+          });
+        }
+      }
+
+      function addOfficerMarkers(car_lat, car_lng) {
+        // console.log(car_lat);
+        // console.log(car_lng);
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        var allOfficers = <%= (@officers.collect {|o| [o.lat, o.long]}).to_json %>;
+        
+        for (var i = 0; i < allOfficers.length; i++) {
+          var officer_lat = allOfficers[i][0];
+          var officer_lng = allOfficers[i][1];
+          //distance in miles
+          var distance = calDistance(car_lat, car_lng, officer_lat, officer_lng)
+          console.log(distance);
+
+          if (distance < 0.3) {
+            var marker_officer = new google.maps.Marker({
+              position: {lat: officer_lat, lng: officer_lng},
+              map: map,
+              icon: image,
+              animation: google.maps.Animation.BOUNCE
+            });
+            bounds.extend(marker_officer.position);
+          }
+        }
+      }
+
+      function calDistance(lat1, lon1, lat2, lon2) {
+        var radlat1 = Math.PI * lat1/180;
+        var radlat2 = Math.PI * lat2/180;
+        var theta = lon1-lon2;
+        var radtheta = Math.PI * theta/180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        dist = Math.acos(dist);
+        dist = dist * 180/Math.PI;
+        dist = dist * 60 * 1.1515;
+        // if (unit=="K") { dist = dist * 1.609344 }
+        return dist;
+      }
+
+      
     </script>
+
     <!-- Colin's google maps api key -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQkN_qJiypesT-pr5vj0k9AyED7OsT4cU&callback=initMap"
             async defer></script>
