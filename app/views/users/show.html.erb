@@ -21,6 +21,7 @@
       var officer_markers = [];
       var lat;
       var circle;
+      var danger_zone = 0.3;
       
 
       function initMap() {
@@ -35,7 +36,7 @@
         addCarMarkers();
         circle = new google.maps.Circle({
           map: map,
-          radius: 482.803,    // 0.5 miles in metres
+          radius: danger_zone * 1609.34,    // 0.5 miles in metres
           strokeColor: '#FF0000',
           strokeOpacity: 0.8,
           strokeWeight: 2,
@@ -104,8 +105,8 @@
           //distance in miles
           var distance = calDistance(car_lat, car_lng, officer_lat, officer_lng)
           // console.log(distance);
-
-          if (distance < 0.3) {
+          
+          if (distance < danger_zone) {
             var marker_officer = new google.maps.Marker({
               position: {lat: officer_lat, lng: officer_lng},
               map: map,
