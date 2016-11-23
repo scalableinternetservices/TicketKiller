@@ -14,12 +14,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @officers = Officer.all
 
-    @user.car.each do |car| 
-      Officer.all.each do |officer| 
+    @user.car.each do |car|
+      Officer.all.each do |officer|
         if CarsHelper.distance(car, officer) < 0.3
           flash[:danger] = 'Your Cars Are In DANGER'
         end
-      end 
+      end
     end
     # debugger
   end
