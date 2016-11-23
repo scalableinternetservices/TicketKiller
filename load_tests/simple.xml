@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="CHANGE IP" port="80" type="tcp"></server>
+    <server host="CHANGE MY IP" port="80" type="tcp"></server>
   </servers>
 
 
