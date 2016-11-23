@@ -130,7 +130,7 @@
       <!-- wait for up to 2 seconds, user decides to delete community -->
       <thinktime value="2" random="true"></thinktime>
 
-      <!-- Uncomment the following to debug print your dynamic variables  --> 
+      <!-- Uncomment the following to debug print your dynamic variables  -->
       <!--
       <setdynvars sourcetype="eval" code="fun( {Pid, DynVars} ) ->
         io:format([126, $p, 126, $n, 126, $n], [DynVars]),
