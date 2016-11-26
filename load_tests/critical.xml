@@ -57,29 +57,7 @@
       <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
     </option>
 
-    <!-- The lorem_words.csv file contains a list of lorem words -->
-    <!-- The words are used for generating search keywords -->
-    <!--<option name="file_server" id='lorem_words' value="./lorem_words.csv"></option> -->
   </options>
-
-<!-- ================================================= -->
-<!--                     Sessions Weight               -->
-<!-- [sign_up]                      1                  -->
-<!-- [login-logout]                 1                  -->
-<!-- [visit-homepage]               10                 -->
-<!-- [visit-about]                  10                 -->
-<!-- [visit-help]                   10                 -->
-<!-- [visit-contact]                10                 -->
-<!-- [visit-search-index]           1                  -->
-<!-- [search-by-name]               5                  -->
-<!-- [search-by-tag]                4                  -->
-<!-- [search-by-user]               1                  -->
-<!-- [create-delete-recipe]         1                  -->
-<!-- [create-delete-masterpiece]    1                  -->
-<!-- [like-recipe]                  2                  -->
-<!-- [bookmark-recipe]              2                  -->
-<!-- [like-masterpiece]             1                  -->
-<!-- ================================================= -->
 
 
   <sessions>
@@ -102,6 +80,14 @@
       <request>
         <http url="/signup" version="1.1" method="GET"></http>
       </request>
+       <request subst="true">
+        <http
+          url='/signup'
+          version='1.1'
+          method='POST'
+          contents="user%5Bname%5D=abcde&amp;user%5Bemail%5D=%%_random_user_email%%%40gmail.com&amp;user%5Bpassword%5D=123456&amp;user%5Bpassword_confirmation%5D=123456&amp;commit=Create+my+account"></http>
+      </request>
+
       </for>
     </session>
   <sessions>
@@ -463,7 +449,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <request>
         <dyn_variable name="authenticity_token" ></dyn_variable> 
-        <http url="/users/sign_in" version="1.1" method="GET"></http>
+        <http url="/login" version="1.1" method="GET"></http>
       </request>
 
       <thinktime value="2" random="true"></thinktime>
