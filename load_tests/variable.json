@@ -1,1 +1,29 @@
-variable.json
+{
+  "query":
+  {
+    "filtered":
+    {
+      "filter":
+      {
+        "and": [
+        {
+          "term":
+          {
+            "tags": "ios"
+          }
+        },
+        {
+          "term":
+          {
+            "tags": "high_paying_customer"
+          }
+        }]
+      },
+      "query":
+      {
+        "match_all":
+        {}
+      }
+    }
+  }
+}
