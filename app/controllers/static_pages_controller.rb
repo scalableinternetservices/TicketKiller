@@ -1,17 +1,33 @@
 class StaticPagesController < ApplicationController
   def home
-  	fresh_when(current_user)
+  	if (current_user)
+  		fresh_when(current_user.id)
+  	else 
+  		fresh_when(true)
+  	end
   end
 
   def help
-  	fresh_when(current_user)
+  	if (current_user)
+  		fresh_when(current_user.id)
+  	else 
+  		fresh_when(true)
+  	end
   end
 
   def about
-  	fresh_when(current_user)
+  	if (current_user)
+  		fresh_when(current_user.id)
+  	else 
+  		fresh_when(true)
+  	end
   end
 
   def contact
-  	fresh_when(current_user)
+  	if (current_user)
+  		fresh_when(current_user.id)
+  	else 
+  		fresh_when(true)
+  	end
   end
 end
