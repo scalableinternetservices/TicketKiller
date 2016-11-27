@@ -2,18 +2,22 @@ class UsersController < ApplicationController
   before_action :logged_in_as_admin, only: [:index]
 
   def index
-    @users = User.all
+    fresh_when(User.all)
+    @users = User.all 
   end
 
   def new
-    @user = User.new
+    @user = User.new if stale?(true)
     # debugger
   end
 
   def show
-    @user = User.find(params[:id])
+    fresh_when([Officer.all, current_user.car])
+    @user = User.find(params[:id]) 
     @officers = Officer.all
-
+    #client side cash
+    
+    
     @user.car.each do |car|
       Officer.all.each do |officer|
         if CarsHelper.distance(car, officer) < 0.3
@@ -25,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) if stale?(true)
   end
 
   def update

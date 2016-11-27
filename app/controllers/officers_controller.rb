@@ -4,7 +4,7 @@ class OfficersController < ApplicationController
   # GET /officers
   # GET /officers.json
   def index
-    @officers = Officer.all
+    @officers = Officer.all if stale?(Officer.all)
   end
 
   # GET /officers/1
@@ -14,7 +14,7 @@ class OfficersController < ApplicationController
 
   # GET /officers/new
   def new
-    @officer = Officer.new
+    @officer = Officer.new if stale?(true)
   end
 
   # GET /officers/1/edit
@@ -24,7 +24,7 @@ class OfficersController < ApplicationController
   # POST /officers
   # POST /officers.json
   def create
-    @officer = Officer.new(officer_params)
+    @officer = Officer.new(officer_params) 
     if @officer.save
         flash[:success] = 'officer was successfully Reported, Thank you!'
         redirect_to user_path(current_user.id)

@@ -4,15 +4,16 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.json
   def index
+    fresh_when([current_user,current_user.car])
     @cars = Car.select { |car| car.user_id == current_user.id }
 
-    Officer.all.each do |offr|
-      @cars.each do |car|
-        Rails.logger.debug("#{offr.long}, #{offr.lat}")
-        Rails.logger.debug("#{car.long}, #{car.lat}")
-        Rails.logger.debug(CarsHelper.distance(car, offr))
-      end
-    end
+    # Officer.all.each do |offr|
+    #   @cars.each do |car|
+    #     Rails.logger.debug("#{offr.long}, #{offr.lat}")
+    #     Rails.logger.debug("#{car.long}, #{car.lat}")
+    #     Rails.logger.debug(CarsHelper.distance(car, offr))
+    #   end
+    # end
   end
 
   # GET /cars/1
@@ -22,7 +23,7 @@ class CarsController < ApplicationController
 
   # GET /cars/new
   def new
-    @car = Car.new
+    @car = Car.new if stale?(true)
 
     # puts params[:user_id]
   end
