@@ -14,15 +14,18 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="1" unit="second">
+    <arrivalphase phase="1" duration="20" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-<!--     <arrivalphase phase="2" duration="10" unit="second">
+    <arrivalphase phase="2" duration="20" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="10" unit="second">
+    <arrivalphase phase="3" duration="20" unit="second">
       <users arrivalrate="4" unit="second"></users>
-    </arrivalphase> -->
+    </arrivalphase>
+    <arrivalphase phase="4" duration="20" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
   </load>
 
   <options>
@@ -85,7 +88,7 @@
         <http url='/logout' version='1.1' method='DELETE'></http>
       </request>
       <!-- =========================log out finished====================== -->
-      
+
 
       <!-- wait for up to 10 seconds -->
       <thinktime value="10" random="true"></thinktime>
@@ -96,7 +99,7 @@
       </request>
 
       <thinktime value="2" random="true"></thinktime>
-      
+
       <request>
         <http
           url='/login'
@@ -111,7 +114,7 @@
         <http url="%%_created_user_url%%" method="DELETE">
         </http>
       </request>
-      
+
       <!-- log out admin -->
       <request>
         <http url='/logout' version='1.1' method='DELETE'></http>

@@ -14,15 +14,18 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="1" unit="second">
+    <arrivalphase phase="1" duration="20" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-<!--     <arrivalphase phase="2" duration="10" unit="second">
+    <arrivalphase phase="2" duration="20" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="10" unit="second">
+    <arrivalphase phase="3" duration="20" unit="second">
       <users arrivalrate="4" unit="second"></users>
-    </arrivalphase> -->
+    </arrivalphase>
+    <arrivalphase phase="4" duration="20" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
   </load>
 
   <options>
@@ -76,7 +79,7 @@
       </request>
       <!-- =========================Sign up finished========================= -->
 
-      <!-- wait for up to 2 seconds, user is looking at profilo -->
+      <!-- wait for up to 2 seconds, user is looking at profile -->
       <thinktime value="2" random="true"></thinktime>
 
       <!-- =========================locate car start========================= -->
@@ -88,8 +91,11 @@
       </request>
 
       <!-- create a random float number to make a random position -->
-      <setdynvars sourcetype="random_number" start="0" end="100000000">
-        <var name="random_float_car" />
+      <setdynvars sourcetype="random_number" start="0" end="180">
+        <var name="random_float_car1" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="0" end="180">
+        <var name="random_float_car2" />
       </setdynvars>
 
       <!-- post to /signup to create a user.
@@ -100,10 +106,10 @@
           url='/locateYourCar'
           version='1.1'
           method='POST'
-          contents="car%5Blat%5D=34%2E0%%_random_float_car%%&amp;car%5Blong%5D=-118.4%%_random_float_car%%&amp;commit=Locate+My+Car"></http>
+          contents="car%5Blat%5D=34%2E0%%_random_float_car1%%&amp;car%5Blong%5D=-118.4%%_random_float_car2%%&amp;commit=Locate+My+Car"></http>
       </request>
       <!-- =========================locate car finished========================= -->
-  
+
       <!-- =========================log out start========================= -->
       <request>
         <http url='/logout' version='1.1' method='DELETE'></http>
@@ -155,20 +161,23 @@
       </request>
       <!-- =========================Sign up finished========================= -->
 
-      <!-- wait for up to 2 seconds, user is looking at profilo -->
+      <!-- wait for up to 2 seconds, user is looking at profile -->
       <thinktime value="2" random="true"></thinktime>
 
       <!-- =========================locate car start========================= -->
       <request>
         <http url="/locateYourCar" version="1.1" method="GET"></http>
       </request>
-      
+
       <!-- wait for up to 2 seconds, user is making the car on the map-->
       <thinktime value="2" random="true"></thinktime>
 
       <!-- create a random float number to make a random position -->
-      <setdynvars sourcetype="random_number" start="0" end="100000000">
-        <var name="random_float_car" />
+      <setdynvars sourcetype="random_number" start="0" end="180">
+        <var name="random_float_car1" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="0" end="180">
+        <var name="random_float_car2" />
       </setdynvars>
 
       <!-- post to /signup to create a user.
@@ -179,7 +188,7 @@
           url='/locateYourCar'
           version='1.1'
           method='POST'
-          contents="car%5Blat%5D=34%2E0%%_random_float_car%%&amp;car%5Blong%5D=-118.4%%_random_float_car%%&amp;commit=Locate+My+Car"></http>
+          contents="car%5Blat%5D=34%2E0%%_random_float_car1%%&amp;car%5Blong%5D=-118.4%%_random_float_car2%%&amp;commit=Locate+My+Car"></http>
       </request>
       <!-- =========================locate car finished========================= -->
 
@@ -206,7 +215,7 @@
           contents="officer%5Blat%5D=34.0%%_random_float_officer%%&amp;officer%5Blong%5D=-118.4%%_random_float_officer%%&amp;commit=Report"></http>
       </request>
       <!-- =========================locate car finished========================= -->
-  
+
       <!-- =========================log out start========================= -->
       <request>
         <http url='/logout' version='1.1' method='DELETE'></http>
@@ -258,32 +267,35 @@
       <!-- wait for up to 2 seconds, user is looking at profilo -->
       <thinktime value="2" random="true"></thinktime>
 
-      <for subst='true' from="1" to="5" incr="1" var="counter">
-      <!-- =========================locate officer start========================= -->
-      <request>
-        <http url="/reportofficer" version="1.1" method="GET"></http>
-      </request>
+      <for from="1" to="5" incr="1" var="counter">
+        <!-- =========================locate officer start========================= -->
+        <request>
+          <http url="/reportofficer" version="1.1" method="GET"></http>
+        </request>
 
-      <!-- wait for up to 2 seconds, user is making the car on the map-->
-      <thinktime value="2" random="true"></thinktime>
+        <!-- wait for up to 2 seconds, user is making the car on the map-->
+        <thinktime value="2" random="true"></thinktime>
 
-      <!-- create a random number to make a random position -->
-      <setdynvars sourcetype="random_number" start="0" end="100000000">
-        <var name="random_float_officer" />
-      </setdynvars>
+        <!-- create a random number to make a random position -->
+        <setdynvars sourcetype="random_number" start="0" end="180">
+          <var name="random_float_officer1" />
+        </setdynvars>
+        <setdynvars sourcetype="random_number" start="0" end="180">
+          <var name="random_float_officer2" />
+        </setdynvars>
 
-      <!-- post to /signup to create a user.
-           remember the url of the created community so we can delete it later -->
-      <request subst="true">
-        <http
-          url='/reportofficer'
-          version='1.1'
-          method='POST'
-          contents="officer%5Blat%5D=34.0%%_random_float_officer%%&amp;officer%5Blong%5D=-118.4%%_random_float_officer%%&amp;commit=Report"></http>
-      </request>
-      <!-- =========================locate car finished========================= -->
+        <!-- post to /signup to create a user.
+             remember the url of the created community so we can delete it later -->
+        <request subst="true">
+          <http
+              url='/reportofficer'
+              version='1.1'
+              method='POST'
+              contents="officer%5Blat%5D=34.0%%_random_float_officer1%%&amp;officer%5Blong%5D=-118.4%%_random_float_officer2%%&amp;commit=Report"></http>
+        </request>
+        <!-- =========================locate car finished========================= -->
       </for>
-      
+
       <!-- =========================log out start========================= -->
       <request>
         <http url='/logout' version='1.1' method='DELETE'></http>
