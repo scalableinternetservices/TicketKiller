@@ -14,7 +14,7 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="10" unit="second">
+    <arrivalphase phase="1" duration="1" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
 <!--     <arrivalphase phase="2" duration="10" unit="second">
@@ -40,7 +40,8 @@
     <!--                      sign_up                      -->
     <!-- ================================================= -->
     <!-- 1. sign up users -->
-    <!-- 1. sign up users -->
+    <!-- 2. logout users -->
+    <!-- 3. admin delete user created -->
     <!-- ================================================= -->
 
     <session name="sign_up" probability="100" type="ts_http">
@@ -67,6 +68,7 @@
       <!-- post to /signup to create a user.
            remember the url of the created community so we can delete it later -->
       <request subst="true">
+        <dyn_variable name="created_user_url" re="[Ll]ocation: (http://.*)\r"/>
         <http
           url='/signup'
           version='1.1'
@@ -78,56 +80,43 @@
       <!-- wait for up to 2 seconds, user is looking at profilo -->
       <thinktime value="2" random="true"></thinktime>
 
-      <!-- =================User updating account info  start================ -->
-      <!-- =================User updating account info  finished================ -->
-
-      <!-- =========================locate car start========================= -->
-      <!-- wait for up to 2 seconds, user is making the car on the map-->
-      <thinktime value="2" random="true"></thinktime>
-
+      <!-- =========================log out start========================= -->
       <request>
-        <http url="/locateYourCar" version="1.1" method="GET"></http>
+        <http url='/logout' version='1.1' method='DELETE'></http>
       </request>
-
-      <!-- create a random float number to make a random position -->
-      <setdynvars sourcetype="random_number" start="0" end="100000000">
-        <var name="random_float_car" />
-      </setdynvars>
-
-      <!-- post to /signup to create a user.
-           remember the url of the created community so we can delete it later -->
-      <request subst="true">
-        <http
-          url='/locateYourCar'
-          version='1.1'
-          method='POST'
-          contents="car%5Blat%5D=34%2E0%%_random_float_car%%&amp;car%5Blong%5D=-118.4%%_random_float_car%%&amp;commit=Locate+My+Car"></http>
-      </request>
-      <!-- =========================locate car finished========================= -->
+      <!-- =========================log out finished====================== -->
       
-      <!-- =========================locate officer start========================= -->
-      <!-- wait for up to 2 seconds, user is making the car on the map-->
-      <thinktime value="2" random="true"></thinktime>
 
+      <!-- wait for up to 10 seconds -->
+      <thinktime value="10" random="true"></thinktime>
+
+      <!-- ====================Admin deleted the user start================ -->
       <request>
-        <http url="/reportofficer" version="1.1" method="GET"></http>
+        <http url="/login" version="1.1" method="GET"></http>
       </request>
 
-      <!-- create a random float number to make a random position -->
-      <setdynvars sourcetype="random_number" start="0" end="100000000">
-        <var name="random_float_officer" />
-      </setdynvars>
-
-      <!-- post to /signup to create a user.
-           remember the url of the created community so we can delete it later -->
-      <request subst="true">
+      <thinktime value="2" random="true"></thinktime>
+      
+      <request>
         <http
-          url='/reportofficer'
+          url='/login'
           version='1.1'
           method='POST'
-          contents="officer%5Blat%5D=34.0%%_random_float_officer%%&amp;officer%5Blong%5D=-118.4%%_random_float_officer%%&amp;commit=Report"></http>
+          contents="session%5Bemail%5D=admin%40admin.org&amp;session%5Bpassword%5D=password&amp;commit=Log+in"></http>
       </request>
-      <!-- =========================locate car finished========================= -->
+
+      <!-- delete the user we created -->
+
+      <request subst="true">
+        <http url="%%_created_user_url%%" method="DELETE">
+        </http>
+      </request>
+      
+      <!-- log out admin -->
+      <request>
+        <http url='/logout' version='1.1' method='DELETE'></http>
+      </request>
+      <!-- ====================Admin deleted the user finished=============== -->
     </session>
   </sessions>
 </tsung>
