@@ -35,9 +35,9 @@ end
 ######################################
 avg_num_cars_per_user.times do |n_car|
   total_num_of_users.times do |n_user|
-    puts 'Creating car: car_' + (n_car + 1).to_s + ' for user_' + (n_user + 2)
+    puts 'Creating car: car_' + (n_car + 1).to_s + ' for user_' + (n_user + 1).to_s
     car = Car.create(
-      user_id: n_user + 2,
+      user_id: n_user + 1,
       lat: Faker::Address.latitude,
       long: Faker::Address.longitude
     )
