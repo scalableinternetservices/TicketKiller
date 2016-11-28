@@ -5,14 +5,6 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     @cars = Car.select { |car| car.user_id == current_user.id }
-
-    Officer.all.each do |offr|
-      @cars.each do |car|
-        Rails.logger.debug("#{offr.long}, #{offr.lat}")
-        Rails.logger.debug("#{car.long}, #{car.lat}")
-        Rails.logger.debug(CarsHelper.distance(car, offr))
-      end
-    end
   end
 
   # GET /cars/1
