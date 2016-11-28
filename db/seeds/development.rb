@@ -13,7 +13,8 @@ User.create!(name:  "Admin",
 ######################################
 
 total_num_of_users = 500
-total_num_of_officers = 1000
+avg_num_cars_per_user = 3 
+total_num_of_officers = 8000
 
 ######################################
 # create users
@@ -30,12 +31,26 @@ total_num_of_users.times do |n_user|
 end
 
 ######################################
+# create cars
+######################################
+avg_num_cars_per_user.times do |n_car|
+  total_num_of_users.times do |n_user|
+    puts 'Creating car: car_' + (n_car + 1).to_s + ' for user_' + (n_user + 2).to_s
+    car = Car.create(
+      user_id: n_user + 2,
+      lat: Faker::Address.latitude,
+      long: Faker::Address.longitude
+    )
+  end
+end
+
+######################################
 # create officers
 ######################################
 total_num_of_officers.times do |n_officer|
   puts 'Creating user: officer_' + (n_officer + 1).to_s
   officer = Officer.create(
-  	lat: Faker::Address.latitude,
-  	long: Faker::Address.longitude
+    lat: Faker::Address.latitude,
+    long: Faker::Address.longitude
   )
 end

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
-<!-- <tsung loglevel="notice" dumptraffic="protocol" version="1.0"> -->
+<tsung loglevel="notice" version="1.0">
 
   <!-- Client side setup -->
   <clients>
@@ -9,20 +9,21 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="" port="80" type="tcp"></server>
+    <server host="CHANGE MY IP" port="80" type="tcp"></server>
   </servers>
 
+
   <load>
-    <arrivalphase phase="1" duration="30" unit="second">
+    <arrivalphase phase="1" duration="20" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="2" duration="30" unit="second">
+    <arrivalphase phase="2" duration="20" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="30" unit="second">
+    <arrivalphase phase="3" duration="20" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="4" duration="30" unit="second">
+    <arrivalphase phase="4" duration="20" unit="second">
       <users arrivalrate="8" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="5" duration="30" unit="second">
@@ -52,58 +53,61 @@
     <option type="ts_http" name="user_agent">
       <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
     </option>
-
-    <!-- The lorem_words.csv file contains a list of lorem words -->
-    <!-- The words are used for generating search keywords -->
-    <!-- <option name="file_server" id='lorem_words' value="./lorem_words.csv"></option> -->
   </options>
 
   <sessions>
-
     <!-- ================================================= -->
     <!--                      SESSION                      -->
-    <!--                    login-logout                   -->
-    <!--                     prob: 100%                    -->
+    <!--          login-visit-user-profile-logout          -->
     <!-- ================================================= -->
     <!-- 1. set up current user randomly -->
-    <!-- 2. sign up -->
-    <!-- 3. log out -->
+    <!-- 2. login -->
+    <!-- 3. visit-user-profile -->
+    <!-- 4. log out -->
     <!-- ================================================= -->
 
-    <session name="login-logout" probability="100" type="ts_http">
-
-      <!-- repeat step [2,3] 10 times -->
-      <for from="1" to="10" incr="1" var="counter">
-
-      <!-- =========================Sign up start========================= -->
-      <request>
-        <http url="/signup" version="1.1" method="GET"></http>
-      </request>
-
-      <!-- wait for up to 2 seconds, user is filling the form -->
-      <thinktime value="3" random="true"></thinktime>
-
-      <!-- create a random string to make a unique email name -->
+    <session name="login-visit-user-profile" weight="10" type="ts_http">   
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
       <setdynvars sourcetype="random_number" start="1" end="500">
-        <var name="random_user_email" />
+        <var name="current_user_id" />
       </setdynvars>
 
-      <!-- post to /signup to create a user.
-           remember the url of the created community so we can delete it later -->
-      <request subst="true">
-        <dyn_variable name="created_user_url" re="[Ll]ocation: (http://.*)\r"/>
-        <http
-          url='/signup'
-          version='1.1'
-          method='POST'
-          contents="user%5Bname%5D=tester&amp;user%5Bemail%5D=%%_random_user_email%%%40gmail.com&amp;user%5Bpassword%5D=password&amp;user%5Bpassword_confirmation%5D=password&amp;commit=Create+my+account"></http>
+      <!-- 2. login -->
+      <!-- go to /login page -->
+      <request>
+        <http url="/login" version="1.1" method="GET"></http>
       </request>
-      <!-- =========================Sign up finished========================= -->
-
-
       
+      <!-- user fill in the form -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - email: user_1@example.com -->
+      <!-- [sample value] - password: password -->
+      <request subst="true">
+        <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
+        <http url="/login" method="POST" version="1.1" 
+          contents="user%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+      </request>
+
+      <!-- repeat step [3] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+        <!-- user is waiting -->
+        <thinktime value="2" random="true"></thinktime>
+
+        <!-- 3.visit-user-profile -->
+        <request>
+          <http url="%%_login_user_url%%" version="1.1" method="GET"></http>
+        </request>
+
       </for>
 
+      <thinktime value="2" random="true"></thinktime>
+      <!-- 4. log out -->
+      <request>
+        <http url='/logout' version='1.1' method='DELETE'></http>
+      </request>
     </session>
 
   </sessions>
