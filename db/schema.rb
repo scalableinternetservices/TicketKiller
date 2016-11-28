@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20161118060522) do
   create_table "officers", force: :cascade do |t|
     t.float    "lat"
     t.float    "long"
-    t.datetime "last_seen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
