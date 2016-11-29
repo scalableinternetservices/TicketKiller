@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @officers = Officer.all
 
     @user.car.each do |car|
-      Officer.all.each do |officer|
+      @officers.each do |officer|
         if CarsHelper.distance(car, officer) < 0.3
           flash[:danger] = 'Your Cars Are In DANGER'
         end
