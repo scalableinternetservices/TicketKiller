@@ -66,7 +66,7 @@
     <!-- 4. log out -->
     <!-- ================================================= -->
 
-    <session name="login-visit-user-profile" weight="10" type="ts_http">   
+    <session name="login-visit-user-profile" probability="100" type="ts_http">   
       <!-- 1. set up current user randomly -->
       <!-- [sample value] - current_user_id: 1 -->
       <setdynvars sourcetype="random_number" start="1" end="500">
@@ -88,7 +88,7 @@
       <request subst="true">
         <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
         <http url="/login" method="POST" version="1.1" 
-          contents="user%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+          contents="session%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;session%5Bpassword%5D=password&amp;commit=Log+in"/>
       </request>
 
       <!-- repeat step [3] 10 times -->
@@ -97,7 +97,7 @@
         <thinktime value="2" random="true"></thinktime>
 
         <!-- 3.visit-user-profile -->
-        <request>
+        <request subst="true">
           <http url="%%_login_user_url%%" version="1.1" method="GET"></http>
         </request>
 

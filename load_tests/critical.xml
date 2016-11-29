@@ -14,10 +14,10 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="20" unit="second">
+    <arrivalphase phase="1" duration="30" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="2" duration="20" unit="second">
+    <!-- <arrivalphase phase="2" duration="20" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="3" duration="20" unit="second">
@@ -28,7 +28,7 @@
     </arrivalphase>
     <arrivalphase phase="5" duration="30" unit="second">
       <users arrivalrate="16" unit="second"></users>
-    </arrivalphase>
+    </arrivalphase> -->
 <!--    <arrivalphase phase="6" duration="30" unit="second">
      <users arrivalrate="32" unit="second"></users>
    </arrivalphase>
@@ -107,8 +107,8 @@
       <thinktime value="2" random="true"></thinktime>
       <!-- =========================Sign up finished========================= -->
 
-      <!-- repeat step [2,3] 10 times -->
-      <for from="1" to="10" incr="1" var="counter">
+      <!-- repeat step [2,3] 5 times -->
+      <for from="1" to="5" incr="1" var="counter">
 
         <!-- 2. visit homepage -->
         <request>
@@ -118,7 +118,7 @@
         <thinktime value="2" random="true"></thinktime>
         
         <!-- 2. visit profile -->
-        <request>
+        <request subst="true">
           <http url="%%_created_user_url%%" version="1.1" method="GET"></http>
         </request>
 
@@ -192,16 +192,16 @@
       <request subst="true">
         <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
         <http url="/login" method="POST" version="1.1" 
-          contents="user%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+          contents="session%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;session%5Bpassword%5D=password&amp;commit=Log+in"/>
       </request>
 
-      <!-- repeat step [3] 10 times -->
-      <for from="1" to="10" incr="1" var="counter">
+      <!-- repeat step [3] 5 times -->
+      <for from="1" to="5" incr="1" var="counter">
         <!-- user is waiting -->
         <thinktime value="2" random="true"></thinktime>
 
         <!-- 3.visit-user-profile -->
-        <request>
+        <request subst="true">
           <http url="%%_login_user_url%%" version="1.1" method="GET"></http>
         </request>
 
@@ -247,7 +247,7 @@
       <request subst="true">
         <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
         <http url="/login" method="POST" version="1.1" 
-          contents="user%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+          contents="session%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;session%5Bpassword%5D=password&amp;commit=Log+in"/>
       </request>
 
       <!-- repeat step [2,3] 10 times -->
@@ -324,7 +324,7 @@
       <request subst="true">
         <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
         <http url="/login" method="POST" version="1.1" 
-          contents="user%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+          contents="session%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;session%5Bpassword%5D=password&amp;commit=Log+in"/>
       </request>
 
       <!-- repeat step [2,3] 10 times -->
@@ -353,7 +353,7 @@
         <request subst="true">
           <dyn_variable name="created_car_url" re="[Ll]ocation: (http://.*)\r"/>
           <http
-            url='/locateYourCar'
+            url='/reportofficer'
             version='1.1'
             method='POST'
             contents="officer%5Blat%5D=34.0%%_random_float_lat%%&amp;officer%5Blong%5D=-118.4%%_random_float_lng%%&amp;commit=Report"></http>
@@ -394,10 +394,10 @@
       <request>
         <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
         <http url="/login" method="POST" version="1.1" 
-          contents="user%5Bemail%5D=admin@admin.org&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+          contents="session%5Bemail%5D=admin@admin.org&amp;session%5Bpassword%5D=password&amp;commit=Log+in"/>
       </request>
 
-      <!-- repeat step [2,3] 10 times -->
+      <!-- repeat step [2,3] 5 times -->
       <for from="1" to="5" incr="1" var="counter">
         <!-- =========================delete officer start========================= -->
 
@@ -420,6 +420,6 @@
         <http url='/logout' version='1.1' method='DELETE'></http>
       </request>
     </session>
-    
+
   </sessions>
 </tsung>
