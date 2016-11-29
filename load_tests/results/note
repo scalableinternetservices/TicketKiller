@@ -1,17 +1,50 @@
 
-| directory name         | scaling               | caching   | instance type | server              | thread/process |
-|------------------------+-----------------------+-----------+---------------+---------------------+----------------|
-| plain                  | none                  | none      | t2.micro      | passenger (process) |                |
-| thread                 | none                  | none      | t2.micro      | puma (thread)       |                |
-| server-side            | none                  | memcached | t2.micro      | passenger (process) |                |
-| vertical               | vertical (large)      | none      | m3.xlarge     | passenger (process) |                |
-| horizontal             | horizontal (multiple) | none      | 2x m3.medium  | passenger (process) |                |
-| horizontal_server-side | horizontal (multiple) | memcached | 2x m3.medium  | passenger (process) |                |
+| directory name         | scaling               | caching   | instance type | server              | thread/process           |
+|------------------------+-----------------------+-----------+---------------+---------------------+--------------------------|
+| plain                  | none                  | none      | t2.micro      | passenger (process) | process max pool size: 6 |
+| thread                 | none                  | none      | t2.micro      | puma (thread)       |                          |
+| server-side            | none                  | memcached | t2.micro      | passenger (process) |                          |
+| vertical               | vertical (large)      | none      | m3.xlarge     | passenger (process) |                          |
+| horizontal             | horizontal (multiple) | none      | 2x m3.medium  | passenger (process) |                          |
+| horizontal_server-side | horizontal (multiple) | memcached | 2x m3.medium  | passenger (process) |                          |
 
 TODO : finish thread !!!
-ssh into a passenger and see number of processes with =sudo passenger-status=,
+ssh into a passenger and see number of processes with sudo passenger-status,
 then deploy a puma application with corresponding number of threads
 
 NOTE:
 passenger (open source version) only supports 1 thread per processs,
 allocate the same number of threads for puma
+
+
+* PROCESS (one instance)
+
+[ec2-user@ip-172-31-8-117 ~]$  passenger-status
+Version : 5.0.30
+Date    : 2016-11-29 09:43:26 +0000
+Instance: 3kJcVgQ8 (nginx/1.10.1 Phusion_Passenger/5.0.30)
+
+----------- General information -----------
+Max pool size : 6
+App groups    : 1
+Processes     : 6
+Requests in top-level queue : 0
+
+----------- Application groups -----------
+/home/ec2-user/app/public (production):
+  App root: /home/ec2-user/app
+  Requests in queue: 0
+  * PID: 17121   Sessions: 0       Processed: 1529    Uptime: 8m 39s
+    CPU: 7%      Memory  : 154M    Last used: 3s ago
+  * PID: 17285   Sessions: 0       Processed: 768     Uptime: 4m 5s
+    CPU: 13%     Memory  : 135M    Last used: 15s ago
+  * PID: 17293   Sessions: 0       Processed: 971     Uptime: 4m 5s
+    CPU: 12%     Memory  : 116M    Last used: 24s ago
+  * PID: 17304   Sessions: 0       Processed: 813     Uptime: 4m 2s
+    CPU: 12%     Memory  : 106M    Last used: 25s ago
+  * PID: 17317   Sessions: 0       Processed: 1060    Uptime: 3m 59s
+    CPU: 11%     Memory  : 107M    Last used: 25s ago
+  * PID: 17328   Sessions: 0       Processed: 814     Uptime: 3m 57s
+    CPU: 11%     Memory  : 90M     Last used: 27s ago
+
+* THREAD (mulitple instance)
