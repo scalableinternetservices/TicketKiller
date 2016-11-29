@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="notice" version="1.0">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="CHANGE MY IP" port="80" type="tcp"></server>
+  </servers>
+
+
+  <load>
+    <arrivalphase phase="1" duration="20" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="20" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="20" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="4" duration="20" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="5" duration="30" unit="second">
+      <users arrivalrate="16" unit="second"></users>
+    </arrivalphase>
+<!--    <arrivalphase phase="6" duration="30" unit="second">
+     <users arrivalrate="32" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="7" duration="30" unit="second">
+     <users arrivalrate="64" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="8" duration="30" unit="second">
+     <users arrivalrate="128" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="9" duration="30" unit="second">
+     <users arrivalrate="256" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="10" duration="30" unit="second">
+     <users arrivalrate="512" unit="second"></users>
+   </arrivalphase> -->
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+  </options>
+
+  <sessions>
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   login-locate_car                -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. locate_car -->
+    <!-- 4. log out -->
+    <!-- ================================================= -->
+
+    <session name="login-visit-user-profile" weight="10" type="ts_http">   
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to /login page -->
+      <request>
+        <http url="/login" version="1.1" method="GET"></http>
+      </request>
+      
+      <!-- user fill in the form -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - email: user_1@example.com -->
+      <!-- [sample value] - password: password -->
+      <request subst="true">
+        <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
+        <http url="/login" method="POST" version="1.1" 
+          contents="user%5Bemail%5D=user_%%_current_user_id%%%40example.com&amp;user%5Bpassword%5D=password&amp;commit=Log+in"/>
+      </request>
+
+      <!-- repeat step [2,3] 10 times -->
+      <for from="1" to="6" incr="1" var="counter">
+        <!-- =========================locate car start========================= -->
+        <thinktime value="2" random="true"></thinktime>
+
+        <request>
+          <http url="/locateYourCar" version="1.1" method="GET"></http>
+        </request>
+
+        <!-- wait for up to 2 seconds, user is making the car on the map-->
+        <thinktime value="2" random="true"></thinktime>
+
+        <!-- create a random float number to make a random position -->
+        <setdynvars sourcetype="random_number" start="0" end="10000">
+          <var name="random_float_lat" />
+        </setdynvars>
+
+        <setdynvars sourcetype="random_number" start="0" end="10000">
+          <var name="random_float_lng" />
+        </setdynvars>
+
+        <!-- post to /signup to create a user.
+             remember the url of the created cars so we can delete it later -->
+        <request subst="true">
+          <dyn_variable name="created_car_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http
+            url='/locateYourCar'
+            version='1.1'
+            method='POST'
+            contents="car%5Blat%5D=34.0%%_random_float_lat%%&amp;car%5Blong%5D=-118.4%%_random_float_lng%%&amp;commit=Locate+My+Car"></http>
+        </request>
+        <!-- =========================locate car finished========================= -->
+      </for>
+      
+      <thinktime value="2" random="true"></thinktime>
+      <!-- 4. log out -->
+      <request>
+        <http url='/logout' version='1.1' method='DELETE'></http>
+      </request>
+      
+    </session>
+
+  </sessions>
+</tsung>
