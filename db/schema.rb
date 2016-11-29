@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118060522) do
+ActiveRecord::Schema.define(version: 20161128073953) do
 
   create_table "cars", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,9 +24,15 @@ ActiveRecord::Schema.define(version: 20161118060522) do
   create_table "officers", force: :cascade do |t|
     t.float    "lat"
     t.float    "long"
-    t.datetime "last_seen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "seed_statuses", force: :cascade do |t|
+    t.boolean  "status",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_seed_statuses_on_status", unique: true
   end
 
   create_table "users", force: :cascade do |t|
