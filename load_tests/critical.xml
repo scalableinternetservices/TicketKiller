@@ -14,21 +14,21 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="30" unit="second">
+    <arrivalphase phase="1" duration="40" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <!-- <arrivalphase phase="2" duration="20" unit="second">
+    <arrivalphase phase="2" duration="40" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="20" unit="second">
+    <arrivalphase phase="3" duration="40" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="4" duration="20" unit="second">
+    <arrivalphase phase="4" duration="40" unit="second">
       <users arrivalrate="8" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="5" duration="30" unit="second">
+    <arrivalphase phase="5" duration="40" unit="second">
       <users arrivalrate="16" unit="second"></users>
-    </arrivalphase> -->
+    </arrivalphase> 
 <!--    <arrivalphase phase="6" duration="30" unit="second">
      <users arrivalrate="32" unit="second"></users>
    </arrivalphase>
@@ -63,7 +63,6 @@
 <!-- [login-visit-user-profile-logout]10               -->
 <!-- [login-locate_car]               20               -->
 <!-- [login-locate_officer]           20               -->
-<!-- [Admin-login-delete-officer]     2                -->
 <!-- ================================================= -->
 
 
@@ -367,59 +366,5 @@
         <http url='/logout' version='1.1' method='DELETE'></http>
       </request>
     </session>
-
-    <!-- ================================================= -->
-    <!--                      SESSION                      -->
-    <!--            Admin-login-delete-officer             -->
-    <!-- ================================================= -->
-    <!-- 2. login as admin-->
-    <!-- 1. set up officer will be deleted randomly -->
-    <!-- 3. delete user -->
-    <!-- 4. log out -->
-    <!-- ================================================= -->
-
-    <session name="Admin-login-delete-officer" weight="2" type="ts_http">  
-      <!-- 1. login as admin-->
-      <!-- go to /login page -->
-      <request>
-        <http url="/login" version="1.1" method="GET"></http>
-      </request>
-      
-      <!-- user fill in the form -->
-      <thinktime value="2" random="true"></thinktime>
-
-      <!-- log in using username and password -->
-      <!-- [sample value] - email: user_1@example.com -->
-      <!-- [sample value] - password: password -->
-      <request>
-        <dyn_variable name="login_user_url" re="[Ll]ocation: (http://.*)\r"/>
-        <http url="/login" method="POST" version="1.1" 
-          contents="session%5Bemail%5D=admin@admin.org&amp;session%5Bpassword%5D=password&amp;commit=Log+in"/>
-      </request>
-
-      <!-- repeat step [2,3] 5 times -->
-      <for from="1" to="5" incr="1" var="counter">
-        <!-- =========================delete officer start========================= -->
-
-        <thinktime value="2" random="true"></thinktime>
-        <!-- 2. set up officer will be deleted randomly -->
-        <!-- [sample value] - current_user_id: 1 -->
-        <setdynvars sourcetype="random_number" start="1" end="500">
-          <var name="delete_officer_id" />
-        </setdynvars>
-
-        <request subst="true">
-          <http url="/officers/%%_delete_officer_id%%" version="1.1" method="DELETE"></http>
-        </request>
-        <!-- =========================delete officer start========================= -->
-      </for>
-
-      <thinktime value="2" random="true"></thinktime>
-      <!-- 4. log out -->
-      <request>
-        <http url='/logout' version='1.1' method='DELETE'></http>
-      </request>
-    </session>
-
   </sessions>
 </tsung>
