@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :logged_in_as_admin, only: [:index]
 
   def index
-    fresh_when(User.all)
     @users = User.all 
   end
 
@@ -12,16 +11,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    fresh_when([Officer.all, current_user.car])
-    @user = User.find(params[:id]) 
-    @officers = Officer.all
-    #client side cash
-    
-    
-    @user.car.each do |car|
-      Officer.all.each do |officer|
-        if CarsHelper.distance(car, officer) < 0.3
-          flash[:danger] = 'Your Cars Are In DANGER'
+    if stale? ([Officer.all, current_user.car])
+      @user = User.find(params[:id]) 
+      @officers = Officer.all 
+      #client side cash
+      @user.car.each do |car|
+        @officers.each do |officer|
+          if CarsHelper.distance(car, officer) < 0.3
+            flash[:danger] = 'Your Cars Are In DANGER'
+          end
         end
       end
     end
