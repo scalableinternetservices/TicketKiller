@@ -14,6 +14,7 @@
 
   <tbody>
     <% @officers.each do |officer| %>
+      <% cache(cache_key_for_officer_row(officer)) do %>
       <tr>
         <td><%= officer.lat %></td>
         <td><%= officer.long %></td>
@@ -22,6 +23,7 @@
         <td><%= link_to 'Edit', edit_officer_path(officer) %></td>
         <td><%= link_to 'Destroy', officer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
