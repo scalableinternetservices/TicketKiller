@@ -1,3 +1,4 @@
+<% cache(cache_key_for_car_table) do %>
 <p id="notice"><%= notice %></p>
 
 <h1>Cars</h1>
@@ -31,3 +32,4 @@
 <br>
 
 <%= link_to 'Back', user_path(current_user.id), :class => 'btn btn-primary' %>
+<% end %>

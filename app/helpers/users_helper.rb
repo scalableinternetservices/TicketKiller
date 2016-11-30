@@ -6,4 +6,11 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: "gravatar")
   end
 
+  def cache_key_for_user_row(user)
+    "user-#{user.id}-#{user.updated_at}"
+  end
+
+  def cache_key_for_car_table
+    "user-table-#{User.maximum(:updated_at)}"
+  end
 end

@@ -16,6 +16,10 @@ module CarsHelper
   end
 
   def cache_key_for_car_row(car)
-    "#{car.id}-#{car.user_id}"
+    "car-#{car.id}-#{car.updated_at}"
+  end
+
+  def cache_key_for_car_table
+    "car-table-#{Car.maximum(:updated_at)}"
   end
 end

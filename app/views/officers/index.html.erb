@@ -1,3 +1,4 @@
+<% cache(cache_key_for_officer_table) do %>
 <p id="notice"><%= notice %></p>
 
 <h1>Officers</h1>
@@ -31,3 +32,4 @@
 <br>
 
 <%= link_to 'New Officer', new_officer_path %>
+<% end %>
