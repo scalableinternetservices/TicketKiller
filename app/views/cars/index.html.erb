@@ -14,14 +14,16 @@
 
   <tbody>
     <% @cars.each do |car| %>
-      <tr>
-        <td><%= car.name %></td>
-        <td><%= car.long %></td>
-        <td><%= car.lat %></td>
-        <td><%= link_to 'Show', car, :class => 'btn btn-primary'%></td>
-        <!-- <td><%#= link_to 'Edit', edit_car_path(car) %></td> -->
-        <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
-      </tr>
+      <% cache(cache_key_for_car_row(car)) do %>
+        <tr>
+          <td><%= car.name %></td>
+          <td><%= car.long %></td>
+          <td><%= car.lat %></td>
+          <td><%= link_to 'Show', car, :class => 'btn btn-primary'%></td>
+          <!-- <td><%#= link_to 'Edit', edit_car_path(car) %></td> -->
+          <td><%= link_to 'Delete', car, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
