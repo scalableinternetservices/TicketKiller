@@ -17,12 +17,12 @@ passenger (open source version) only supports 1 thread per processs,
 allocate the same number of threads for puma
 
 
-* PROCESS (one instance)
+* one instance without server side caching
 
-[ec2-user@ip-172-31-8-117 ~]$ passenger-status
+[ec2-user@ip-172-31-2-177 ~]$ passenger-status
 Version : 5.0.30
-Date    : 2016-11-29 09:43:26 +0000
-Instance: 3kJcVgQ8 (nginx/1.10.1 Phusion_Passenger/5.0.30)
+Date    : 2016-11-30 06:46:43 +0000
+Instance: L43Xzg36 (nginx/1.10.1 Phusion_Passenger/5.0.30)
 
 ----------- General information -----------
 Max pool size : 6
@@ -34,17 +34,76 @@ Requests in top-level queue : 0
 /home/ec2-user/app/public (production):
   App root: /home/ec2-user/app
   Requests in queue: 0
-  * PID: 17121   Sessions: 0       Processed: 1529    Uptime: 8m 39s
-    CPU: 7%      Memory  : 154M    Last used: 3s ago
-  * PID: 17285   Sessions: 0       Processed: 768     Uptime: 4m 5s
-    CPU: 13%     Memory  : 135M    Last used: 15s ago
-  * PID: 17293   Sessions: 0       Processed: 971     Uptime: 4m 5s
-    CPU: 12%     Memory  : 116M    Last used: 24s ago
-  * PID: 17304   Sessions: 0       Processed: 813     Uptime: 4m 2s
-    CPU: 12%     Memory  : 106M    Last used: 25s ago
-  * PID: 17317   Sessions: 0       Processed: 1060    Uptime: 3m 59s
-    CPU: 11%     Memory  : 107M    Last used: 25s ago
-  * PID: 17328   Sessions: 0       Processed: 814     Uptime: 3m 57s
-    CPU: 11%     Memory  : 90M     Last used: 27s ago
+  * PID: 16966   Sessions: 0       Processed: 2083    Uptime: 6m 10s
+    CPU: 12%     Memory  : 114M    Last used: 2s ago
+  * PID: 17057   Sessions: 0       Processed: 1323    Uptime: 4m 15s
+    CPU: 12%     Memory  : 116M    Last used: 20s ago
+  * PID: 17068   Sessions: 0       Processed: 957     Uptime: 4m 9s
+    CPU: 9%      Memory  : 111M    Last used: 27s ago
+  * PID: 17085   Sessions: 0       Processed: 954     Uptime: 3m 53s
+    CPU: 9%      Memory  : 106M    Last used: 27s ago
+  * PID: 17093   Sessions: 0       Processed: 916     Uptime: 3m 53s
+    CPU: 9%      Memory  : 108M    Last used: 33s ago
+  * PID: 17102   Sessions: 0       Processed: 847     Uptime: 3m 53s
+    CPU: 8%      Memory  : 93M     Last used: 33s ago
 
-* THREAD (mulitple instance)
+
+* one instance with server side caching
+
+[ec2-user@ip-172-31-3-204 ~]$ passenger-status
+Version : 5.0.30
+Date    : 2016-11-30 08:43:51 +0000
+Instance: oqxDrfRn (nginx/1.10.1 Phusion_Passenger/5.0.30)
+
+----------- General information -----------
+Max pool size : 6
+App groups    : 1
+Processes     : 6
+Requests in top-level queue : 0
+
+----------- Application groups -----------
+/home/ec2-user/app/public (production):
+  App root: /home/ec2-user/app
+  Requests in queue: 0
+  * PID: 17156   Sessions: 0       Processed: 2061    Uptime: 12m 3s
+    CPU: 6%      Memory  : 147M    Last used: 34s ago
+  * PID: 17392   Sessions: 0       Processed: 1302    Uptime: 4m 39s
+    CPU: 11%     Memory  : 146M    Last used: 48s ago
+  * PID: 17403   Sessions: 0       Processed: 1159    Uptime: 4m 34s
+    CPU: 9%      Memory  : 110M    Last used: 51s ago
+  * PID: 17414   Sessions: 0       Processed: 1141    Uptime: 4m 29s
+    CPU: 8%      Memory  : 106M    Last used: 58s ago
+  * PID: 17425   Sessions: 0       Processed: 1007    Uptime: 4m 28s
+    CPU: 8%      Memory  : 134M    Last used: 1m 3s ago
+  * PID: 17450   Sessions: 0       Processed: 966     Uptime: 3m 52s
+    CPU: 9%      Memory  : 94M     Last used: 1m 4s ago
+
+* one instance with server side caching, using russian doll fragment caching
+
+[ec2-user@ip-172-31-14-124 ~]$ passenger-status
+Version : 5.0.30
+Date    : 2016-11-30 10:01:19 +0000
+Instance: DrBzckKW (nginx/1.10.1 Phusion_Passenger/5.0.30)
+
+----------- General information -----------
+Max pool size : 6
+App groups    : 1
+Processes     : 6
+Requests in top-level queue : 0
+
+----------- Application groups -----------
+/home/ec2-user/app/public (production):
+  App root: /home/ec2-user/app
+  Requests in queue: 0
+  * PID: 17142   Sessions: 0       Processed: 2108    Uptime: 5m 28s
+    CPU: 13%     Memory  : 112M    Last used: 0s ago
+  * PID: 17181   Sessions: 0       Processed: 1220    Uptime: 4m 13s
+    CPU: 11%     Memory  : 111M    Last used: 14s ago
+  * PID: 17230   Sessions: 0       Processed: 1236    Uptime: 3m 40s
+    CPU: 10%     Memory  : 108M    Last used: 18s ago
+  * PID: 17245   Sessions: 0       Processed: 951     Uptime: 3m 29s
+    CPU: 10%     Memory  : 113M    Last used: 25s ago
+  * PID: 17253   Sessions: 0       Processed: 994     Uptime: 3m 29s
+    CPU: 10%     Memory  : 109M    Last used: 28s ago
+  * PID: 17272   Sessions: 0       Processed: 979     Uptime: 3m 2s
+    CPU: 11%     Memory  : 97M     Last used: 31s ago
