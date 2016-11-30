@@ -12,10 +12,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @officers = Officer.all
+    lat_range = []
+    lng_range = []
 
     @user.car.each do |car|
-      Officer.all.each do |officer|
+      car_lat = car.lat
+      car_lng = car.long
+      lat_range.push(Range.new(car_lat - 1, car_lat + 1))
+      lng_range.push(Range.new(car_lng - 1, car_lng + 1))
+    end
+    @officers = Officer.where(lat:lat_range, long:lng_range)
+
+    @user.car.each do |car|
+      @officers.each do |officer|
         if CarsHelper.distance(car, officer) < 0.3
           flash[:danger] = 'Your Cars Are In DANGER'
         end
