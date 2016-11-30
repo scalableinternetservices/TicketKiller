@@ -19,7 +19,7 @@ allocate the same number of threads for puma
 
 * PROCESS (one instance)
 
-[ec2-user@ip-172-31-8-117 ~]$  passenger-status
+[ec2-user@ip-172-31-8-117 ~]$ passenger-status
 Version : 5.0.30
 Date    : 2016-11-29 09:43:26 +0000
 Instance: 3kJcVgQ8 (nginx/1.10.1 Phusion_Passenger/5.0.30)
