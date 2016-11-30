@@ -1,0 +1,178 @@
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) Config server started, logdir is "/home/ec2-user/.tsung/log/20161129-0711"
+ 
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+              ts_mon:(5:<0.54.0>) starting monitor, global 
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Reading config file: critical.xml
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+      ts_config_http:(4:<0.55.0>) Get user agent: 100 "Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4" 
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Session name for id 1 is "signup-logout"
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Session name for id 2 is "visit-homepage"
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Session name for id 3 is "visit-help"
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Session name for id 4 is "login-visit-user-profile"
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Session name for id 5 is "login-locate_car"
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+           ts_config:(5:<0.55.0>) Session name for id 6 is "login-locate_officer"
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(4:<0.55.0>) SYSINFO:Tsung version: 1.6.0
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(4:<0.55.0>) SYSINFO:Erlang version: Erlang R14B04 (erts-5.8.5) [source] [64-bit] [rq:1] [async-threads:8] [kernel-poll:true]
+
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(4:<0.55.0>) SYSINFO:System architecture x86_64-redhat-linux-gnu
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(4:<0.55.0>) SYSINFO:Current path: /usr/lib/erlang/lib/tsung-1.6.0/ebin/tsung.beam
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+              ts_mon:(5:<0.56.0>) Activate clients with text backend
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+              ts_mon:(5:<0.56.0>) Starting tsung clients on hosts: [localhost]
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) Start a launcher on the controller beam localhost
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+  ts_launcher_static:(5:<0.111.0>) Launch msg receive ("localhost")
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+         ts_launcher:(5:<0.112.0>) Launch msg receive ("localhost")
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) All remote beams started, syncing 
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) Undefined ports_range config 
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) New arrival phase 1 for client "localhost" (last ? true): will start 40 users
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) New arrival phase 2 for client "localhost" (last ? true): will start 80 users
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) New arrival phase 3 for client "localhost" (last ? true): will start 160 users
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) New arrival phase 4 for client "localhost" (last ? true): will start 320 users
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+    ts_config_server:(5:<0.55.0>) New arrival phase 5 for client "localhost" (last ? true): will start 640 users
+
+=INFO REPORT==== 29-Nov-2016::07:11:13 ===
+         ts_launcher:(5:<0.112.0>) Expected duration of first phase: 40.0 sec (40 users) 
+
+=INFO REPORT==== 29-Nov-2016::07:11:14 ===
+         ts_launcher:(5:<0.112.0>) Activate launcher (40 users) in 3763 msec 
+
+=INFO REPORT==== 29-Nov-2016::07:11:53 ===
+         ts_launcher:(4:<0.112.0>) Need to wait 3.68 sec before changing phase, going to sleep
+
+=INFO REPORT==== 29-Nov-2016::07:11:57 ===
+         ts_launcher:(5:<0.112.0>) Waking up
+
+=INFO REPORT==== 29-Nov-2016::07:11:57 ===
+         ts_launcher:(5:<0.112.0>) Start a new arrival phase (80 users, 0.002); expected duration=40.0 sec
+
+=INFO REPORT==== 29-Nov-2016::07:12:37 ===
+         ts_launcher:(5:<0.112.0>) Phase duration exceeded, but not all users were launched (6 users, 7.5% of phase)
+
+=INFO REPORT==== 29-Nov-2016::07:12:37 ===
+         ts_launcher:(5:<0.112.0>) Start a new arrival phase (160 users, 0.004); expected duration=40.0 sec
+
+=INFO REPORT==== 29-Nov-2016::07:13:17 ===
+         ts_launcher:(5:<0.112.0>) Phase duration exceeded, but not all users were launched (5 users, 3.1% of phase)
+
+=INFO REPORT==== 29-Nov-2016::07:13:17 ===
+         ts_launcher:(5:<0.112.0>) Start a new arrival phase (320 users, 0.008); expected duration=40.0 sec
+
+=INFO REPORT==== 29-Nov-2016::07:13:57 ===
+         ts_launcher:(5:<0.112.0>) Phase duration exceeded, but not all users were launched (5 users, 1.6% of phase)
+
+=INFO REPORT==== 29-Nov-2016::07:13:57 ===
+         ts_launcher:(5:<0.112.0>) Start a new arrival phase (640 users, 0.016); expected duration=40.0 sec
+
+=INFO REPORT==== 29-Nov-2016::07:14:33 ===
+           ts_search:(5:<0.935.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:33 ===
+           ts_search:(5:<0.1061.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.1316.0>) Dyn Var (RE): no Match (varname=login_user_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.1319.0>) Dyn Var (RE): no Match (varname=login_user_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.1276.0>) Dyn Var (RE): no Match (varname=created_user_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.1186.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+         ts_launcher:(5:<0.112.0>) Phase duration exceeded, but not all users were launched (5 users, 0.8% of phase)
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+         ts_launcher:(5:<0.112.0>) This was the last phase, wait for connected users to finish their session
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.1307.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.935.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:37 ===
+           ts_search:(5:<0.899.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1085.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.788.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1151.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1254.0>) Dyn Var (RE): no Match (varname=login_user_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1020.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1313.0>) Dyn Var (RE): no Match (varname=created_user_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1234.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.861.0>) Dyn Var (RE): no Match (varname=created_car_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:14:38 ===
+           ts_search:(5:<0.1294.0>) Dyn Var (RE): no Match (varname=login_user_url), 
+
+=INFO REPORT==== 29-Nov-2016::07:15:27 ===
+     ts_launcher_mgr:(5:<0.106.0>) No more active users 'tsung_controller@ip-172-31-13-201' "1230"
+
+=INFO REPORT==== 29-Nov-2016::07:15:28 ===
+              ts_mon:(5:<0.56.0>) stopping monitor (normal)
