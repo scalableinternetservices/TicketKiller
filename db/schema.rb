@@ -12,30 +12,30 @@
 
 ActiveRecord::Schema.define(version: 20161128073953) do
 
-  create_table "cars", force: :cascade do |t|
+  create_table "cars", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
-    t.float    "long"
-    t.float    "lat"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "name",       default: "My Car"
+    t.float    "long",       limit: 24
+    t.float    "lat",        limit: 24
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "name",                  default: "My Car"
   end
 
-  create_table "officers", force: :cascade do |t|
-    t.float    "lat"
-    t.float    "long"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "officers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.float    "lat",        limit: 24
+    t.float    "long",       limit: 24
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
-  create_table "seed_statuses", force: :cascade do |t|
+  create_table "seed_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean  "status",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["status"], name: "index_seed_statuses_on_status", unique: true
+    t.index ["status"], name: "index_seed_statuses_on_status", unique: true, using: :btree
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at",                          null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20161128073953) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
 end
