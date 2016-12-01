@@ -13,7 +13,7 @@ User.create!(name:  "Admin",
 ######################################
 
 total_num_of_users = 500
-avg_num_cars_per_user = 3 
+avg_num_cars_per_user = 3
 total_num_of_officers = 4000
 
 ######################################

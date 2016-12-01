@@ -78,6 +78,7 @@ Requests in top-level queue : 0
   * PID: 17450   Sessions: 0       Processed: 966     Uptime: 3m 52s
     CPU: 9%      Memory  : 94M     Last used: 1m 4s ago
 
+
 * one instance with server side caching, using russian doll fragment caching
 
 [ec2-user@ip-172-31-14-124 ~]$ passenger-status
