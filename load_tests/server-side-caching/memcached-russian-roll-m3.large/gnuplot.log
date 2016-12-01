@@ -182,6 +182,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [0.864961:0.864961], adjusting to [0.856311:0.87361]
 Could not find/open font when opening font "arial", using internal non-scalable font
 
 	title is " rate", offset at ((character units) 0, 0, 0)
@@ -200,6 +201,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [0.864961:0.864961], adjusting to [0.856311:0.87361]
 Could not find/open font when opening font "arial", using internal non-scalable font
 
 	title is " rate", offset at ((character units) 0, 0, 0)
@@ -215,6 +217,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [3163.26:3163.26], adjusting to [3131.63:3194.89]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
@@ -233,6 +236,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [3163.26:3163.26], adjusting to [3131.63:3194.89]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
